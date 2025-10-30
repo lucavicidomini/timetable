@@ -1,0 +1,54 @@
+@if (form(); as form) {
+    <form class="grid" [formGroup]="form" (change)="onChange()" [style]="getGridStyle(form.controls.rows.controls.length, form.controls.columns.controls.length)">
+        <div class="heading">
+            <input formControlName="name" class="form-control" id="name" />
+        </div>
+        <div class="corner">
+            <input type="color" formControlName="color" />
+        </div>
+        @for (col of form.controls.columns.controls; track $index; let colNum = $index) {
+            <div class="cell" [style]="getColumnHeaderStyle(colNum)">
+                <textarea
+                    class="form-control"
+                    [formControl]="col.controls.name"
+                ></textarea>
+            </div>
+        }
+        @for (row of form.controls.rows.controls; track $index; let rowNum = $index, lastRow = $last) {
+            <div class="cell" [style]="getRowHeaderStyle(rowNum)">
+                <textarea
+                    class="form-control"
+                    [formControl]="row.controls.name"
+                ></textarea>
+            </div>
+            @for (cell of row.controls.cells.controls; track $index; let cellNum = $index) {
+                @if (getRowSpan(rowNum, cellNum) > 0) {
+                    <div class="cell" [style]="getCellStyle(rowNum, cellNum)">
+                        <textarea
+                            class="form-control"
+                            [formControl]="cell.controls.name"
+                        ></textarea>
+                        @if (!lastRow) {
+                            <div class="buttons bg-light">
+                                    <button
+                                        class="btn btn-sm btn-primary"
+                                        (click)="onCellMerge(rowNum, cellNum)"
+                                    >
+                                        Unisci
+                                    </button>
+                                @if (getRowSpan(rowNum, cellNum) > 1) {
+                                    <button
+                                        class="btn btn-sm btn-primary"
+                                        (click)="onCellSplit(rowNum, cellNum)"
+                                    >
+                                        Dividi
+                                    </button>
+                                }
+                            </div>
+                        }
+                    </div>
+                }
+            }
+        }
+    </form>
+}

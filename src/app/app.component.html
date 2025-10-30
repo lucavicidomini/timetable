@@ -1,0 +1,55 @@
+<div id="app-component" class="d-flex flex-column bg-light">
+  <div class="app-header d-flex px-2 pt-2">
+    <button
+      class="btn btn-primary me-2"
+      [class.active]="showSettings"
+      (click)="showSettings = !showSettings"
+    >
+      Impostazioni
+    </button>
+    <button
+      class="btn btn-primary"
+      [class.active]="showPreview"
+      (click)="showPreview = !showPreview"
+    >
+      Anteprima
+    </button>
+    <app-page-selector
+      [pages]="pages()"
+      [selectedPage]="selectedPage()"
+      (addPage)="onAddPage()"
+      (deletePage)="onDeletePage($event)"
+      (selectPage)="onSelectPage($event)"
+    ></app-page-selector>
+    <button
+      class="btn btn-primary me-2"
+      (click)="onDownload()"
+    >
+      Salva&nbsp;JSON
+    </button>
+    <button
+      class="btn btn-primary"
+      (click)="onPdf()"
+    >
+      Scarica&nbsp;PDF
+    </button>
+  </div>
+  <div class="d-flex flex-grow-1 overflow-hidden">
+    @if (showSettings) {
+      <app-settings
+        [settings]="settings()"
+        (edit)="onEdit()"
+      ></app-settings>
+    }
+    @if (showPreview) {
+      <app-preview
+        [url]="url()"
+      ></app-preview>
+    } @else {
+      <app-page-editor
+        [page]="selectedPage()"
+        (edit)="onEdit()"
+      ></app-page-editor>
+    }
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="d-flex mb-2">
+    <div class="form-label align-content-center me-1">
+        {{ label() }}
+    </div>
+    <div [formGroup]="form" class="d-flex flex-col">
+        <div class="align-content-center">
+            <input type="number" class="form-control" formControlName="left" />
+        </div>
+        <div>
+            <input type="number" class="form-control" formControlName="top" />
+            <input type="number" class="form-control" formControlName="bottom" />
+        </div>
+        <div class="align-content-center">
+            <input type="number" class="form-control" formControlName="right" />
+        </div>
+    </div>
+</div>
