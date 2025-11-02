@@ -14,15 +14,17 @@ export class AppStateService {
   }
   
   public load(): null | AppState {
-    const fromStorage = localStorage.getItem('fofo');
-    if (fromStorage) {
+    const json = localStorage.getItem('fofo');
+    return json ? this.parse(json) : null;
+  }
+
+  public parse(json: string): null | AppState {
       try {
-        return new AppState(JSON.parse(fromStorage));
+        return new AppState(JSON.parse(json));
       } catch (error: any) {
         console.log(error);
       }
-    }
-    return null;
+      return null;
   }
   
   public store(fofo: AppState) {
