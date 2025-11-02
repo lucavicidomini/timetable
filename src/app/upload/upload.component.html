@@ -1,0 +1,36 @@
+@if (show()) {
+    <div class="modal modal-xl show" tabindex="-1" style="display: block;">
+        <form [formGroup]="form">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Carica JSON</h5>
+                    <button type="button" class="btn-close" (click)="hide.emit()" aria-label="Annulla"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-warning">
+                        <b>Attenzione!</b>
+                        Caricando un file JSON tutte le pagine e le impostazioni saranno sovrascritte.
+                        Prima di continuare, salvare il JSON attuale.
+                    </div>
+                    <div class="mb-3">
+                        <label for="upload-file" class="form-label">Carica un file JSON salvato in precedenza:</label>
+                        <input class="form-control" type="file" id="upload-file" (change)="onFileSelect($event)">
+                    </div>
+                    <div class="mb-3">
+                        <label for="upload-text" class="form-label">Oppure incolla qui il contenuto:</label>
+                        <textarea formControlName="appState" id="upload-text" class="form-control"></textarea>
+                    </div>
+                    @if (error) {
+                        <p class="text-danger">{{ error }}</p>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="hide.emit()">Annulla</button>
+                    <button type="button" class="btn btn-danger" (click)="onAccept()" [disabled]="form.controls.appState.invalid">Carica</button>
+                </div>
+                </div>
+            </div>
+        </form>
+    </div>
+}

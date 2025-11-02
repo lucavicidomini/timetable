@@ -7,10 +7,11 @@ import { PageEditorComponent } from "./page-editor/page-editor.component";
 import { PageSelectorComponent } from "./page-selector/page-selector.component";
 import { SettingsComponent } from "./settings/settings.component";
 import { PreviewComponent } from "./preview/preview.component";
+import { UploadComponent } from "./upload/upload.component";
 
 @Component({
   selector: 'app-root',
-  imports: [PageSelectorComponent, PageEditorComponent, SettingsComponent, PreviewComponent],
+  imports: [PageSelectorComponent, PageEditorComponent, SettingsComponent, PreviewComponent, UploadComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -83,6 +84,13 @@ export class AppComponent implements OnInit {
 
   public onSelectPage(pageNum: number) {
     this.selectedPageNum.set(pageNum);
+  }
+
+  public onUpload(appState: AppState) {
+    this.appStateService.store(appState);
+    this.appState.update(() => new AppState(appState));
+    this.onSelectPage(0);
+    this.showUpload = false;
   }
 
 }
