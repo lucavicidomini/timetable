@@ -32,6 +32,8 @@ export class AppComponent implements OnInit {
 
   showPreview = false;
 
+  showUpload = false;
+
   selectedPageNum = signal<number | undefined>(undefined);
 
   selectedPage = computed(() => {
