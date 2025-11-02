@@ -7,7 +7,7 @@ export class Entry {
 
     static fromText(txt: string) {
         const [line1, line2] = txt.split('\n');
-        return new Entry(line1, line2);
+        return new Entry(line1 ?? '', line2 ?? '');
     }
 
 }

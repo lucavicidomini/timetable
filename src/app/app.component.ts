@@ -32,6 +32,8 @@ export class AppComponent implements OnInit {
 
   showPreview = false;
 
+  showUpload = false;
+
   selectedPageNum = signal<number | undefined>(undefined);
 
   selectedPage = computed(() => {
@@ -61,6 +63,8 @@ export class AppComponent implements OnInit {
   public onDeletePage(toDelete: Page): void {
     const index = this.pages().findIndex(page => toDelete === page);
     this.pages().splice(index, 1);
+    this.onEdit();
+    this.onSelectPage(Math.max(0, index - 1));
   }
 
   public onDownload(): void {
